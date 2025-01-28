@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MusicaLau.cpp">
+    <ClCompile Include="Main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Instrument.cpp">
@@ -36,6 +36,9 @@
     <ClCompile Include="Partition.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="fonctions_audio.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Instrument.hpp">
@@ -50,5 +53,16 @@
     <ClInclude Include="Guitare.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="fonctions_audio.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SDL2.dll">
+      <Filter>Fichiers sources</Filter>
+    </None>
+    <None Include="SDL2_mixer.dll">
+      <Filter>Fichiers sources</Filter>
+    </None>
   </ItemGroup>
 </Project>
