@@ -8,6 +8,5 @@
 
 Mix_Chunk* loadSound(const std::string& file);
 void playNote(const std::map<std::string, Mix_Chunk*>& notes, const std::string& key);
-int mode_interactif();
 
 #endif

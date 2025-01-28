@@ -11,6 +11,7 @@ public:
     Instrument(const std::string& nomInstrument);
     virtual void jouerNote(const std::string& note) const = 0;
     virtual void afficher() const = 0;
+    virtual int modeInteractif() const = 0;
     virtual ~Instrument() = default;
 };
 

@@ -132,21 +132,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="fonctions_audio.cpp" />
+    <ClCompile Include="Electronique.cpp" />
+    <ClCompile Include="Fonctions_audio.cpp" />
     <ClCompile Include="Guitare.cpp" />
     <ClCompile Include="Instrument.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Partition.cpp" />
     <ClCompile Include="Partition.hpp" />
     <ClCompile Include="Piano.cpp" />
-    <ClCompile Include="Xylophone.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="fonctions_audio.hpp" />
+    <ClInclude Include="Electronique.hpp" />
+    <ClInclude Include="Fonctions_audio.hpp" />
     <ClInclude Include="Guitare.hpp" />
     <ClInclude Include="Instrument.hpp" />
     <ClInclude Include="Piano.hpp" />
-    <ClInclude Include="Xylophone.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SDL2.dll" />

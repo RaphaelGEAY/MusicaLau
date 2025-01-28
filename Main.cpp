@@ -3,10 +3,12 @@
 #include "SDL.h"
 #include "SDL_mixer.h"
 #include "Piano.hpp"
-#include "Xylophone.hpp"
 #include "Guitare.hpp"
+#include "Electronique.hpp"
 #include "Partition.hpp"
-#include "fonctions_audio.hpp"
+#include "Fonctions_audio.hpp"
+
+using namespace std;
 
 void afficherMenu() {
     std::cout << "\n--- Menu Principal ---\n";
@@ -24,6 +26,21 @@ void afficherInstruments() {
     std::cout << "Votre choix : ";
 }
 
+void afficherModes() {
+    std::cout << "\n--- Choisir un Mode ---\n";
+    std::cout << "1. Lire\n";
+    std::cout << "2. Jouer\n";
+    std::cout << "Votre choix : ";
+}
+
+void afficherLectures() {
+    std::cout << "\n--- Choisir un Mode ---\n";
+    std::cout << "1. Mario\n";
+    std::cout << "2. StarWars\n";
+    std::cout << "3. Notes Aléatoires\n";
+    std::cout << "Votre choix : ";
+}
+
 void testSound() {
     Mix_Chunk* sound = Mix_LoadWAV("C:\\Users\\rapha\\Documents\\Ynov\\MusicaLau\\Piano\\C.wav");
 
@@ -36,14 +53,16 @@ void testSound() {
 }
 
 int main() {
-    mode_interactif();
+
     Instrument* instrument = nullptr;
-    std::string choixMenu;
-    std::string choixInstrument;
+    string choixMenu;
+    string choixInstrument;
+    string choixModes;
+    string choixLectures;
 
     while (true) {
         afficherMenu();
-        std::cin >> choixMenu;
+        cin >> choixMenu;
 
         if (choixMenu == "1") {
             afficherInstruments();
@@ -51,12 +70,18 @@ int main() {
 
             if (choixInstrument == "1") {
                 instrument = new Piano();
+                afficherModes();
+                cin >> choixModes;
+                if (choixModes == "2") {
+                    instrument->modeInteractif();
+                    delete instrument;
+                }
             }
             else if (choixInstrument == "2") {
-                instrument = new Xylophone();
+                instrument = new Guitare();
             }
             else if (choixInstrument == "3") {
-                instrument = new Guitare();
+                instrument = new Electronique();
             }
             else {
                 std::cout << "Choix invalide. Aucun instrument sélectionné.\n";
