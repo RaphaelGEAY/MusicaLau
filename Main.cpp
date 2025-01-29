@@ -14,9 +14,10 @@ void afficherMenu() {
     for (int i = 0; i < 100; i++) {
         cout << endl;
     }
-    cout << "\n--- Menu Principal ---\n" << endl;
-    cout << "1. Choisir un instrument\n";
-    cout << "2. Jouer une musique\n";
+    cout << "Bienvenue dans le magasin de Raphael et Hugo : MusicaLau\n" << endl;
+    cout << "--- Que voulez vous faire ---\n" << endl;
+    cout << "1. Jouer d'un instrument\n";
+    cout << "2. Lire une partition\n";
     cout << "3. Quitter\n" << endl;
     cout << "Choix : ";
     for (int i = 0; i < 20; i++) {
@@ -28,37 +29,24 @@ void afficherInstruments() {
     for (int i = 0; i < 100; i++) {
         cout << endl;
     }
-    cout << "\n--- Choisir un Instrument ---\n" << endl;
-    cout << "1. Piano\n";
-    cout << "2. Guitare\n";
-    cout << "3. Electronique\n" << endl;
+    cout << "--- Choisir un instrument ---\n" << endl;
+    cout << "1. Piano          2 000 Euros\n";
+    cout << "2. Guitare        500 Euros\n";
+    cout << "3. Electronique   300 Euros\n" << endl;
+    cout << "R. Retour\n" << endl;
     cout << "Choix : ";
     for (int i = 0; i < 20; i++) {
         cout << endl;
     }
 }
 
-void afficherModes() {
+void afficherPartitions() {
     for (int i = 0; i < 100; i++) {
         cout << endl;
     }
-    cout << "\n--- Choisir un Mode ---\n" << endl;
-    cout << "1. Jouer\n";
-    cout << "2. Lire\n" << endl;
-    cout << "Choix : ";
-    for (int i = 0; i < 20; i++) {
-        cout << endl;
-    }
-}
-
-void afficherLectures() {
-    for (int i = 0; i < 100; i++) {
-        cout << endl;
-    }
-    cout << "\n--- Choisir une partition ---\n" << endl;
-    cout << "1. Mario\n";
-    cout << "2. StarWars\n";
-    cout << "3. Notes Aléatoires\n" << endl;
+    cout << "--- Choisir une partition ---\n" << endl;
+    cout << "1. Mario\n" << endl;
+    cout << "R. Retour\n" << endl;
     cout << "Choix : ";
     for (int i = 0; i < 20; i++) {
         cout << endl;
@@ -68,10 +56,10 @@ void afficherLectures() {
 int main() {
 
     Instrument* instrument = nullptr;
+    Partition* partition = nullptr;
     string choixMenu;
     string choixInstrument;
-    string choixModes;
-    string choixLectures;
+    string choixPartition;
 
     while (true) {
         afficherMenu();
@@ -79,69 +67,51 @@ int main() {
 
         if (choixMenu == "1") {
             afficherInstruments();
-            std::cin >> choixInstrument;
+            cin >> choixInstrument;
 
             if (choixInstrument == "1") {
-                instrument = new Piano();
-                afficherModes();
-                cin >> choixModes;
-
-                if (choixModes == "1") {
-                    instrument->modeInteractif();
-                    delete instrument;
+                for (int i = 0; i < 100; i++) {
+                    cout << endl;
                 }
+                instrument = new Piano();
+                instrument->modeInteractif();
             }
             else if (choixInstrument == "2") {
-                instrument = new Guitare();
-                afficherModes();
-                cin >> choixModes;
-
-                if (choixModes == "1") {
-                    instrument->modeInteractif();
-                    delete instrument;
+                for (int i = 0; i < 100; i++) {
+                    cout << endl;
                 }
+                instrument = new Guitare();
+                instrument->modeInteractif();
             }
             else if (choixInstrument == "3") {
-                instrument = new Electronique();
-                afficherModes();
-                cin >> choixModes;
-
-                if (choixModes == "1") {
-                    instrument->modeInteractif();
-                    delete instrument;
+                for (int i = 0; i < 100; i++) {
+                    cout << endl;
                 }
+                instrument = new Electronique();
+                instrument->modeInteractif();
             }
-            else {
-                std::cout << "Choix invalide. Aucun instrument sélectionné.\n";
-                instrument = nullptr;
-            }
-
-            if (instrument) {
-                instrument->afficher();
-            }
-
         }
         else if (choixMenu == "2") {
-            if (!instrument) {
-                std::cout << "Aucun instrument sélectionné. Veuillez d'abord en choisir un.\n";
+            afficherPartitions();
+            cin >> choixPartition;
+            partition = new Partition();
+            if (choixPartition == "1") {
+                for (int i = 0; i < 100; i++) {
+                    cout << endl;
+                    partition->jouer();
+                }
             }
-            else {
-                Partition partition;
-                partition.chargerPartition("partition.txt");
-                partition.jouer(*instrument, "normal");
-            }
-
         }
         else if (choixMenu == "3") {
-            std::cout << "Au revoir !\n";
+            for (int i = 0; i < 100; i++) {
+                cout << endl;
+            }
+            cout << "Merci et a bientot !";
+            for (int i = 0; i < 26; i++) {
+                cout << endl;
+            }
             break;
-
-        }
-        else {
-            std::cout << "Choix invalide. Veuillez réessayer.\n";
         }
     }
-
-    delete instrument;
     return 0;
 }

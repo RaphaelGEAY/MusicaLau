@@ -53,25 +53,25 @@ int Piano::modeInteractif() const{
 
     // Chargement des sons
     std::map<std::string, Mix_Chunk*> notes;
-    notes["<"] = loadSound("C:\\Instruments\\Piano\\C.wav");
-    notes["Q"] = loadSound("C:\\Instruments\\Piano\\C#.wav");
-    notes["W"] = loadSound("C:\\Instruments\\Piano\\D.wav");
-    notes["S"] = loadSound("C:\\Instruments\\Piano\\D#.wav");
-    notes["X"] = loadSound("C:\\Instruments\\Piano\\E.wav");
-    notes["C"] = loadSound("C:\\Instruments\\Piano\\F.wav");
-    notes["F"] = loadSound("C:\\Instruments\\Piano\\F#.wav");
-    notes["V"] = loadSound("C:\\Instruments\\Piano\\G.wav");
-    notes["G"] = loadSound("C:\\Instruments\\Piano\\G#.wav");
-    notes["B"] = loadSound("C:\\Instruments\\Piano\\A.wav");
-    notes["H"] = loadSound("C:\\Instruments\\Piano\\A#.wav");
-    notes["N"] = loadSound("C:\\Instruments\\Piano\\B.wav");
-    notes[","] = loadSound("C:\\Instruments\\Piano\\C2.wav");
-    notes["K"] = loadSound("C:\\Instruments\\Piano\\C#2.wav");
-    notes[";"] = loadSound("C:\\Instruments\\Piano\\D2.wav");
-    notes["L"] = loadSound("C:\\Instruments\\Piano\\D#2.wav");
-    notes[":"] = loadSound("C:\\Instruments\\Piano\\E2.wav");
-    notes["!"] = loadSound("C:\\Instruments\\Piano\\F2.wav");
-    notes["*"] = loadSound("C:\\Instruments\\Piano\\F#2.wav");
+    notes["<"] = loadSound("Instruments\\Piano\\C.wav");
+    notes["Q"] = loadSound("Instruments\\Piano\\C#.wav");
+    notes["W"] = loadSound("Instruments\\Piano\\D.wav");
+    notes["S"] = loadSound("Instruments\\Piano\\D#.wav");
+    notes["X"] = loadSound("Instruments\\Piano\\E.wav");
+    notes["C"] = loadSound("Instruments\\Piano\\F.wav");
+    notes["F"] = loadSound("Instruments\\Piano\\F#.wav");
+    notes["V"] = loadSound("Instruments\\Piano\\G.wav");
+    notes["G"] = loadSound("Instruments\\Piano\\G#.wav");
+    notes["B"] = loadSound("Instruments\\Piano\\A.wav");
+    notes["H"] = loadSound("Instruments\\Piano\\A#.wav");
+    notes["N"] = loadSound("Instruments\\Piano\\B.wav");
+    notes[","] = loadSound("Instruments\\Piano\\C2.wav");
+    notes["K"] = loadSound("Instruments\\Piano\\C#2.wav");
+    notes[";"] = loadSound("Instruments\\Piano\\D2.wav");
+    notes["L"] = loadSound("Instruments\\Piano\\D#2.wav");
+    notes[":"] = loadSound("Instruments\\Piano\\E2.wav");
+    notes["!"] = loadSound("Instruments\\Piano\\F2.wav");
+    notes["*"] = loadSound("Instruments\\Piano\\F#2.wav");
 
     // Vérification des fichiers chargés
     for (const auto& note : notes) {
@@ -81,7 +81,6 @@ int Piano::modeInteractif() const{
     }
 
     // Mode interactif pour jouer des notes
-    std::cout << "Appuyez sur les touches du clavier pour jouer des notes. Appuyez sur P pour quitter.\n";
     bool running = true;
     SDL_Event event;
 
@@ -90,10 +89,10 @@ int Piano::modeInteractif() const{
             // Vérification des événements de fenêtre
             if (event.type == SDL_WINDOWEVENT) {
                 if (event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
-                    std::cout << "La fenêtre a gagné le focus." << std::endl;
+                    std::cout << "Window +" << std::endl;
                 }
                 else if (event.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
-                    std::cout << "La fenêtre a perdu le focus." << std::endl;
+                    std::cout << "Window -" << std::endl;
                 }
             }
 
@@ -105,7 +104,7 @@ int Piano::modeInteractif() const{
                 std::string key = SDL_GetKeyName(event.key.keysym.sym);
                 std::transform(key.begin(), key.end(), key.begin(), ::toupper);
 
-                if (key == "P") {
+                if (key == "R") {
                     running = false;
                 }
                 else {

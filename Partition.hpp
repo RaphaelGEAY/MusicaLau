@@ -9,8 +9,7 @@ class Partition {
 private:
     std::vector<std::string> notes;
 public:
-    void chargerPartition(const std::string& nomFichier);
-    void jouer(const Instrument& instrument, const std::string& rythme) const;
+    int jouer() const;
 };
 
 #endif
