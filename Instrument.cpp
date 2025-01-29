@@ -1,3 +1,5 @@
 #include "Instrument.hpp"
 
-Instrument::Instrument(const std::string& nomInstrument) : nom(nomInstrument) {}
+using namespace std;
+
+Instrument::Instrument(const string& nomInstrument) : nom(nomInstrument) {}

@@ -2,15 +2,14 @@
 #define INSTRUMENT_HPP
 
 #include <string>
-#include <iostream>
+
+using namespace std;
 
 class Instrument {
 protected:
-    std::string nom;
+    string nom;
 public:
-    Instrument(const std::string& nomInstrument);
-    virtual void jouerNote(const std::string& note) const = 0;
-    virtual void afficher() const = 0;
+    Instrument(const string& nomInstrument);
     virtual int modeInteractif() const = 0;
     virtual ~Instrument() = default;
 };

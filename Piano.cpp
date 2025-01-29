@@ -11,18 +11,11 @@ using namespace std;
 
 Piano::Piano() : Instrument("Piano") {}
 
-void Piano::jouerNote(const std::string& note) const {
-    std::cout << "Piano joue : " << note << std::endl;
-}
-
-void Piano::afficher() const {
-    std::cout << "Instrument : " << nom << std::endl;
-}
-
 int Piano::modeInteractif() const{
+
     // Initialisation de SDL
     if (SDL_Init(SDL_INIT_AUDIO | SDL_INIT_EVENTS) < 0) {
-        std::cerr << "Erreur : Impossible d'initialiser SDL : " << SDL_GetError() << std::endl;
+        cerr << "Erreur : Impossible d'initialiser SDL : " << SDL_GetError() << endl;
         return -1;
     }
 
@@ -31,28 +24,29 @@ int Piano::modeInteractif() const{
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN);
 
     if (!window) {
-        std::cerr << "Erreur : Impossible de créer la fenêtre : " << SDL_GetError() << std::endl;
+        cerr << "Erreur : Impossible de creer la fenetre : " << SDL_GetError() << endl;
         SDL_Quit();
         return -1;
     }
 
     // Initialisation de SDL_mixer
     if (Mix_OpenAudio(48000, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
-        std::cerr << "Erreur : Impossible d'initialiser SDL_mixer : " << Mix_GetError() << std::endl;
+        cerr << "Erreur : Impossible d'initialiser SDL_mixer : " << Mix_GetError() << endl;
         SDL_DestroyWindow(window);
         SDL_Quit();
         return -1;
     }
 
+    // Alocation des canaux de mixage
     if (Mix_AllocateChannels(128) < 0) {
-        std::cerr << "Error allocating channels: " << Mix_GetError() << std::endl;
+        cerr << "Erreur d'allocation des canaux de mixage: " << Mix_GetError() << endl;
         Mix_CloseAudio();
         SDL_Quit();
         return -1;
     }
 
     // Chargement des sons
-    std::map<std::string, Mix_Chunk*> notes;
+    map<string, Mix_Chunk*> notes;
     notes["<"] = loadSound("Instruments\\Piano\\C.wav");
     notes["Q"] = loadSound("Instruments\\Piano\\C#.wav");
     notes["W"] = loadSound("Instruments\\Piano\\D.wav");
@@ -76,7 +70,7 @@ int Piano::modeInteractif() const{
     // Vérification des fichiers chargés
     for (const auto& note : notes) {
         if (!note.second) {
-            std::cerr << "Attention : Le fichier pour la touche '" << note.first << "' n'a pas été chargé correctement." << std::endl;
+            cerr << "Attention : Le fichier pour la touche : " << note.first << " n'a pas ete charge correctement" << endl;
         }
     }
 
@@ -85,14 +79,16 @@ int Piano::modeInteractif() const{
     SDL_Event event;
 
     while (running) {
+
         while (SDL_PollEvent(&event)) {
+
             // Vérification des événements de fenêtre
             if (event.type == SDL_WINDOWEVENT) {
                 if (event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
-                    std::cout << "Window +" << std::endl;
+                    cout << "Window +" << endl;
                 }
                 else if (event.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
-                    std::cout << "Window -" << std::endl;
+                    cout << "Window -" << endl;
                 }
             }
 
@@ -101,8 +97,9 @@ int Piano::modeInteractif() const{
                 running = false;
             }
             else if (event.type == SDL_KEYDOWN) {
-                std::string key = SDL_GetKeyName(event.key.keysym.sym);
-                std::transform(key.begin(), key.end(), key.begin(), ::toupper);
+
+                string key = SDL_GetKeyName(event.key.keysym.sym);
+                transform(key.begin(), key.end(), key.begin(), ::toupper);
 
                 if (key == "R") {
                     running = false;
@@ -118,7 +115,6 @@ int Piano::modeInteractif() const{
     for (auto& pair : notes) {
         Mix_FreeChunk(pair.second);
     }
-
     Mix_CloseAudio();
     SDL_DestroyWindow(window);
     SDL_Quit();

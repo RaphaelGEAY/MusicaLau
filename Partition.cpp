@@ -7,20 +7,22 @@
 #include <string>
 #include <cmath>
 
-int Partition::jouer() const {
+using namespace std;
+
+int Partition::jouerMario() const {
 
     // Définir une structure pour la note et sa durée
     struct Note {
-        std::string note;
-        float duration;  // Durée en secondes
+        string note;
+        float duration;
     };
 
     if (!initSDL()) {
         return 1;
     }
 
-    // Définir la mélodie avec les notes et les durées adaptées au tempo du thème de Mario (120 BPM)
-    std::vector<Note> melody = {
+    // Définir la mélodie de Mario
+    vector<Note> melody = {
         {"E7", 0.083}, {"0", 0.083}, {"E7", 0.083}, {"0", 0.083}, {"0", 0.083},
         {"0", 0.083}, {"E7", 0.083}, {"0", 0.083}, {"0", 0.083}, {"0", 0.083},
         {"C7", 0.083}, {"0", 0.083}, {"E7", 0.083}, {"0", 0.083}, {"0", 0.083},
@@ -37,6 +39,7 @@ int Partition::jouer() const {
 
     // Parcours de chaque note dans la mélodie
     for (const auto& note : melody) {
+
         int frequency = noteToFrequency(note.note);  // Obtenir la fréquence de la note
         int toneLength = static_cast<int>(note.duration * 44100);  // Durée en échantillons
 
@@ -47,12 +50,70 @@ int Partition::jouer() const {
         SDL_QueueAudio(1, buffer, toneLength);
 
         // Délai entre les notes (durée de la note en millisecondes)
-        SDL_Delay(static_cast<int>(note.duration * 1000));  // Attendre la durée de la note
+        SDL_Delay(static_cast<int>(note.duration * 1000));
 
         delete[] buffer;  // Libérer le buffer après utilisation
     }
 
-    SDL_Delay(5000);  // Attendre avant de fermer (laisser le temps à la dernière note de se jouer)
+    SDL_CloseAudio();  // Fermer le périphérique audio
+    SDL_Quit();  // Quitter SDL
+
+    return 0;
+}
+
+int Partition::jouerStarWars() const {
+
+    // Définir une structure pour la note et sa durée
+    struct Note {
+        string note;
+        float duration;
+    };
+
+    if (!initSDL()) {
+        return 1;
+    }
+
+    // Définir la mélodie de StarWars
+    vector<Note> melody = {
+        {"A#1", 0.125}, {"0", 0.1625}, {"A#1", 0.125}, {"0", 0.1625}, {"A#1", 0.125}, {"0", 0.1625},
+        {"F2", 0.25}, {"0", 0.325}, {"C2", 0.125}, {"0", 0.1625},
+        {"A#2", 0.25}, {"0", 0.325}, {"A2", 0.25}, {"0", 0.325},
+        {"G2", 0.125}, {"0", 0.1625}, {"F1", 0.0625}, {"0", 0.08125},
+        {"C1", 0.25}, {"0", 0.325}, {"A#2", 0.25}, {"0", 0.325},
+        {"A2", 0.25}, {"0", 0.325}, {"G2", 0.125}, {"0", 0.1625},
+        {"F1", 0.0625}, {"0", 0.08125}, {"C1", 0.25}, {"0", 0.325},
+        {"A#2", 0.25}, {"0", 0.325}, {"A2", 0.25}, {"0", 0.325},
+        {"G2", 0.125}, {"0", 0.1625}, {"F1", 0.0625}, {"0", 0.08125},
+        {"C1", 0.25}, {"0", 0.325}, {"A#2", 0.25}, {"0", 0.325},
+        {"A2", 0.25}, {"0", 0.325}, {"A#2", 0.25}, {"0", 0.325},
+        {"G2", 0.25}, {"0", 0.325}, {"C1", 0.25}, {"0", 0.325},
+        {"C1", 0.25}, {"0", 0.325}, {"C1", 0.25}, {"0", 0.325},
+        {"F2", 0.25}, {"0", 0.325}, {"C2", 0.125}, {"0", 0.1625},
+        {"A#2", 0.25}, {"0", 0.325}, {"A2", 0.25}, {"0", 0.325},
+        {"G2", 0.125}, {"0", 0.1625}, {"F1", 0.0625}, {"0", 0.08125},
+        {"C1", 0.25}, {"0", 0.325}, {"A#2", 0.25}, {"0", 0.325},
+        {"A2", 0.25}, {"0", 0.325}, {"G2", 0.125}, {"0", 0.1625},
+        {"F1", 0.0625}, {"0", 0.08125}, {"C1", 0.25}, {"0", 0.325},
+        {"A#2", 0.25}, {"0", 0.325}, {"A2", 0.25}, {"0", 0.325}
+    };
+
+    // Parcours de chaque note dans la mélodie
+    for (const auto& note : melody) {
+
+        int frequency = noteToFrequency(note.note);  // Obtenir la fréquence de la note
+        int toneLength = static_cast<int>(note.duration * 44100);  // Durée en échantillons
+
+        Uint8* buffer = new Uint8[toneLength];  // Allouer un buffer pour les données audio
+        generateTone(buffer, toneLength, frequency);  // Générer la tonalité
+
+        // Mettre en file d'attente les données audio pour la lecture
+        SDL_QueueAudio(1, buffer, toneLength);
+
+        // Délai entre les notes (durée de la note en millisecondes)
+        SDL_Delay(static_cast<int>(note.duration * 1000));
+
+        delete[] buffer;  // Libérer le buffer après utilisation
+    }
 
     SDL_CloseAudio();  // Fermer le périphérique audio
     SDL_Quit();  // Quitter SDL

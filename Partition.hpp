@@ -1,15 +1,19 @@
 #ifndef PARTITION_HPP
 #define PARTITION_HPP
 
+#include "Instrument.hpp"
+
 #include <vector>
 #include <string>
-#include "Instrument.hpp"
+
+using namespace std;
 
 class Partition {
 private:
-    std::vector<std::string> notes;
+    vector<string> notes;
 public:
-    int jouer() const;
+    int jouerMario() const;
+    int jouerStarWars() const;
 };
 
 #endif

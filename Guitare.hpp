@@ -3,11 +3,11 @@
 
 #include "Instrument.hpp"
 
+using namespace std;
+
 class Guitare : public Instrument {
 public:
     Guitare();
-    void jouerNote(const std::string& note) const override;
-    void afficher() const override;
     int modeInteractif() const override;
 };
 

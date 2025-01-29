@@ -7,20 +7,15 @@
 #include <string>
 #include <algorithm>
 
+using namespace std;
+
 Electronique::Electronique() : Instrument("Electronique") {}
 
-void Electronique::jouerNote(const std::string& note) const {
-    std::cout << "Piano joue : " << note << std::endl;
-}
-
-void Electronique::afficher() const {
-    std::cout << "Instrument : " << nom << std::endl;
-}
-
 int Electronique::modeInteractif() const{
+
     // Initialisation de SDL
     if (SDL_Init(SDL_INIT_AUDIO | SDL_INIT_EVENTS) < 0) {
-        std::cerr << "Erreur : Impossible d'initialiser SDL : " << SDL_GetError() << std::endl;
+        cerr << "Erreur : Impossible d'initialiser SDL : " << SDL_GetError() << endl;
         return -1;
     }
 
@@ -29,69 +24,71 @@ int Electronique::modeInteractif() const{
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN);
 
     if (!window) {
-        std::cerr << "Erreur : Impossible de créer la fenêtre : " << SDL_GetError() << std::endl;
+        cerr << "Erreur : Impossible de creer la fenetre : " << SDL_GetError() << endl;
         SDL_Quit();
         return -1;
     }
 
     // Initialisation de SDL_mixer
     if (Mix_OpenAudio(48000, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
-        std::cerr << "Erreur : Impossible d'initialiser SDL_mixer : " << Mix_GetError() << std::endl;
+        cerr << "Erreur : Impossible d'initialiser SDL_mixer : " << Mix_GetError() << endl;
         SDL_DestroyWindow(window);
         SDL_Quit();
         return -1;
     }
 
+    // Alocation des canaux de mixage
     if (Mix_AllocateChannels(128) < 0) {
-        std::cerr << "Error allocating channels: " << Mix_GetError() << std::endl;
+        cerr << "Erreur d'allocation des canaux de mixage: " << Mix_GetError() << endl;
         Mix_CloseAudio();
         SDL_Quit();
         return -1;
     }
 
     // Chargement des sons
-    std::map<std::string, Mix_Chunk*> notes;
-    notes["<"] = loadSound("C:\\Instruments\\Electronique\\C.wav");
-    notes["Q"] = loadSound("C:\\Instruments\\Electronique\\C#.wav");
-    notes["W"] = loadSound("C:\\Instruments\\Electronique\\D.wav");
-    notes["S"] = loadSound("C:\\Instruments\\Electronique\\D#.wav");
-    notes["X"] = loadSound("C:\\Instruments\\Electronique\\E.wav");
-    notes["C"] = loadSound("C:\\Instruments\\Electronique\\F.wav");
-    notes["F"] = loadSound("C:\\Instruments\\Electronique\\F#.wav");
-    notes["V"] = loadSound("C:\\Instruments\\Electronique\\G.wav");
-    notes["G"] = loadSound("C:\\Instruments\\Electronique\\G#.wav");
-    notes["B"] = loadSound("C:\\Instruments\\Electronique\\A.wav");
-    notes["H"] = loadSound("C:\\Instruments\\Electronique\\A#.wav");
-    notes["N"] = loadSound("C:\\Instruments\\Electronique\\B.wav");
-    notes[","] = loadSound("C:\\Instruments\\Electronique\\C2.wav");
-    notes["K"] = loadSound("C:\\Instruments\\Electronique\\C#2.wav");
-    notes[";"] = loadSound("C:\\Instruments\\Electronique\\D2.wav");
-    notes["L"] = loadSound("C:\\Instruments\\Electronique\\D#2.wav");
-    notes[":"] = loadSound("C:\\Instruments\\Electronique\\E2.wav");
-    notes["!"] = loadSound("C:\\Instruments\\Electronique\\F2.wav");
-    notes["*"] = loadSound("C:\\Instruments\\Electronique\\F#2.wav");
+    map<string, Mix_Chunk*> notes;
+    notes["<"] = loadSound("Instruments\\Electronique\\C.wav");
+    notes["Q"] = loadSound("Instruments\\Electronique\\C#.wav");
+    notes["W"] = loadSound("Instruments\\Electronique\\D.wav");
+    notes["S"] = loadSound("Instruments\\Electronique\\D#.wav");
+    notes["X"] = loadSound("Instruments\\Electronique\\E.wav");
+    notes["C"] = loadSound("Instruments\\Electronique\\F.wav");
+    notes["F"] = loadSound("Instruments\\Electronique\\F#.wav");
+    notes["V"] = loadSound("Instruments\\Electronique\\G.wav");
+    notes["G"] = loadSound("Instruments\\Electronique\\G#.wav");
+    notes["B"] = loadSound("Instruments\\Electronique\\A.wav");
+    notes["H"] = loadSound("Instruments\\Electronique\\A#.wav");
+    notes["N"] = loadSound("Instruments\\Electronique\\B.wav");
+    notes[","] = loadSound("Instruments\\Electronique\\C2.wav");
+    notes["K"] = loadSound("Instruments\\Electronique\\C#2.wav");
+    notes[";"] = loadSound("Instruments\\Electronique\\D2.wav");
+    notes["L"] = loadSound("Instruments\\Electronique\\D#2.wav");
+    notes[":"] = loadSound("Instruments\\Electronique\\E2.wav");
+    notes["!"] = loadSound("Instruments\\Electronique\\F2.wav");
+    notes["*"] = loadSound("Instruments\\Electronique\\F#2.wav");
 
     // Vérification des fichiers chargés
     for (const auto& note : notes) {
         if (!note.second) {
-            std::cerr << "Attention : Le fichier pour la touche '" << note.first << "' n'a pas été chargé correctement." << std::endl;
+            cerr << "Attention : Le fichier pour la touche : " << note.first << " n'a pas ete charge correctement" << endl;
         }
     }
 
     // Mode interactif pour jouer des notes
-    std::cout << "Appuyez sur les touches du clavier pour jouer des notes. Appuyez sur P pour quitter.\n";
     bool running = true;
     SDL_Event event;
 
     while (running) {
+
         while (SDL_PollEvent(&event)) {
+
             // Vérification des événements de fenêtre
             if (event.type == SDL_WINDOWEVENT) {
                 if (event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
-                    std::cout << "La fenêtre a gagné le focus." << std::endl;
+                    cout << "Window +" << endl;
                 }
                 else if (event.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
-                    std::cout << "La fenêtre a perdu le focus." << std::endl;
+                    cout << "Window -" << endl;
                 }
             }
 
@@ -100,10 +97,11 @@ int Electronique::modeInteractif() const{
                 running = false;
             }
             else if (event.type == SDL_KEYDOWN) {
-                std::string key = SDL_GetKeyName(event.key.keysym.sym);
-                std::transform(key.begin(), key.end(), key.begin(), ::toupper);
 
-                if (key == "P") {
+                string key = SDL_GetKeyName(event.key.keysym.sym);
+                transform(key.begin(), key.end(), key.begin(), ::toupper);
+
+                if (key == "R") {
                     running = false;
                 }
                 else {
@@ -117,7 +115,6 @@ int Electronique::modeInteractif() const{
     for (auto& pair : notes) {
         Mix_FreeChunk(pair.second);
     }
-
     Mix_CloseAudio();
     SDL_DestroyWindow(window);
     SDL_Quit();

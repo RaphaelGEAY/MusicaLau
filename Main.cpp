@@ -10,6 +10,7 @@
 
 using namespace std;
 
+// Affichage du menu princpale
 void afficherMenu() {
     for (int i = 0; i < 100; i++) {
         cout << endl;
@@ -25,6 +26,7 @@ void afficherMenu() {
     }
 }
 
+// Affichage des instruments
 void afficherInstruments() {
     for (int i = 0; i < 100; i++) {
         cout << endl;
@@ -40,12 +42,14 @@ void afficherInstruments() {
     }
 }
 
+// Affichage des partitions
 void afficherPartitions() {
     for (int i = 0; i < 100; i++) {
         cout << endl;
     }
     cout << "--- Choisir une partition ---\n" << endl;
-    cout << "1. Mario\n" << endl;
+    cout << "1. Mario\n";
+    cout << "2. StarWars\n" << endl;
     cout << "R. Retour\n" << endl;
     cout << "Choix : ";
     for (int i = 0; i < 20; i++) {
@@ -53,14 +57,17 @@ void afficherPartitions() {
     }
 }
 
+// Fonction main
 int main() {
 
+    // Initialisation des variables
     Instrument* instrument = nullptr;
     Partition* partition = nullptr;
     string choixMenu;
     string choixInstrument;
     string choixPartition;
 
+    // Boucle principale avec les choix des menus
     while (true) {
         afficherMenu();
         cin >> choixMenu;
@@ -95,11 +102,18 @@ int main() {
             afficherPartitions();
             cin >> choixPartition;
             partition = new Partition();
+
             if (choixPartition == "1") {
                 for (int i = 0; i < 100; i++) {
                     cout << endl;
-                    partition->jouer();
                 }
+                partition->jouerMario();
+            }
+            if (choixPartition == "2") {
+                for (int i = 0; i < 100; i++) {
+                    cout << endl;
+                }
+                partition->jouerStarWars();
             }
         }
         else if (choixMenu == "3") {
