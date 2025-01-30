@@ -60,9 +60,11 @@ void afficherPartitions() {
 // Fonction main
 int main() {
 
-    // Initialisation des variables
-    Instrument* instrument = nullptr;
-    Partition* partition = nullptr;
+    // Création de pointeurs d'objets
+    Instrument* instrument;
+    Partition* partition;
+
+    // Création de variables de choix
     string choixMenu;
     string choixInstrument;
     string choixPartition;
@@ -80,21 +82,21 @@ int main() {
                 for (int i = 0; i < 100; i++) {
                     cout << endl;
                 }
-                instrument = new Piano();
+                instrument = new Piano(); // new Piano() crée un objet de type Piano dans la mémoire de l'ordinateur, et instrument va pointer vers cet objet
                 instrument->modeInteractif();
             }
             else if (choixInstrument == "2") {
                 for (int i = 0; i < 100; i++) {
                     cout << endl;
                 }
-                instrument = new Guitare();
+                instrument = new Guitare(); // new Guitare() crée un objet de type Guitare dans la mémoire de l'ordinateur, et instrument va pointer vers cet objet
                 instrument->modeInteractif();
             }
             else if (choixInstrument == "3") {
                 for (int i = 0; i < 100; i++) {
                     cout << endl;
                 }
-                instrument = new Electronique();
+                instrument = new Electronique(); // new Electronique() crée un objet de type Electronique dans la mémoire de l'ordinateur, et instrument va pointer vers cet objet
                 instrument->modeInteractif();
             }
         }

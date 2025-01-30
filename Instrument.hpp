@@ -6,12 +6,11 @@
 using namespace std;
 
 class Instrument {
-protected:
+protected: // Permet d'être accessible dans les classes hérités
     string nom;
 public:
-    Instrument(const string& nomInstrument);
-    virtual int modeInteractif() const = 0;
-    virtual ~Instrument() = default;
+    Instrument(const string nomInstrument);
+    virtual int modeInteractif() const; // Permet la redéfinition dans les classes hérités
 };
 
 #endif

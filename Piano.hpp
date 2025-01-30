@@ -8,7 +8,7 @@ using namespace std;
 class Piano : public Instrument {
 public:
     Piano();
-    int modeInteractif() const override;
+    int modeInteractif() const;
 };
 
 #endif
